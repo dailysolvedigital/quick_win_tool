@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 10-Minute Quick Win Flow | Fridge Use-First Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+        .heading-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .step-active {
+            border-color: #10b981 !important;
+            background-color: rgba(16, 185, 129, 0.1) !important;
+        }
+        .step-complete {
+            border-color: #3b82f6 !important;
+            background-color: rgba(59, 130, 246, 0.1) !important;
+        }
+        @media print {
+            .no-print { display: none !important; }
+            body { background-color: #ffffff !important; color: #000000 !important; }
+            .print-card { border: 2px solid #000 !important; box-shadow: none !important; color: #000 !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-12 px-3 sm:px-6 flex flex-col items-center justify-start">
+
+    <!-- Top Header -->
+    <header class="max-w-4xl w-full pt-8 pb-6 text-center border-b border-slate-800">
+        <div class="inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-bold text-xs uppercase px-3.5 py-1 rounded-full mb-3 tracking-wide">
+            <span>⚡</span> STEP 6 — 10-MINUTE QUICK WIN SYSTEM
+        </div>
+        <h1 class="heading-font text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+            The 10-Minute Dinner Rescue
+        </h1>
+        <p class="text-slate-400 text-sm sm:text-base mt-2 max-w-2xl mx-auto font-medium">
+            Stop food waste, rescue expiring ingredients, and lock in tonight's meal in 10 minutes—saving $30+ without buying a single new grocery item.
+        </p>
+    </header>
+
+    <!-- Flow Timeline Indicator -->
+    <div class="max-w-4xl w-full my-6 bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-xl no-print">
+        <div class="flex justify-between items-center mb-4">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Interactive Flow Execution</span>
+            <span id="time-badge" class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs font-bold px-3 py-1 rounded-full">
+                ⏱️ Minutes 1–3: Ingredient Audit
+            </span>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2 sm:gap-4 text-center">
+            <!-- Step 1 Bar -->
+            <div id="timeline-step-1" class="step-active border-2 border-slate-700 bg-slate-800/50 p-3 rounded-xl transition-all">
+                <div class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-emerald-400">Step 1 (Mins 1–3)</div>
+                <div class="text-xs sm:text-sm font-extrabold text-white mt-0.5">Fridge Audit</div>
+            </div>
+            <!-- Step 2 Bar -->
+            <div id="timeline-step-2" class="border-2 border-slate-800 bg-slate-800/20 p-3 rounded-xl transition-all opacity-60">
+                <div class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-400">Step 2 (Mins 4–7)</div>
+                <div class="text-xs sm:text-sm font-extrabold text-white mt-0.5">Vault Match</div>
+            </div>
+            <!-- Step 3 Bar -->
+            <div id="timeline-step-3" class="border-2 border-slate-800 bg-slate-800/20 p-3 rounded-xl transition-all opacity-60">
+                <div class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-400">Step 3 (Mins 8–10)</div>
+                <div class="text-xs sm:text-sm font-extrabold text-white mt-0.5">Lock & Save $30</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN WORKSPACE CONTAINER -->
+    <main class="max-w-4xl w-full space-y-6">
+
+        <!-- STEP 1 PANEL: FRIDGE USE-FIRST TRACKER -->
+        <section id="panel-step-1" class="bg-slate-900 border-2 border-slate-800 rounded-2xl p-5 sm:p-8 shadow-2xl space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div>
+                    <span class="bg-emerald-500 text-slate-950 font-black text-xs px-2.5 py-0.5 rounded uppercase tracking-wider">Minutes 1–3</span>
+                    <h2 class="heading-font text-xl sm:text-2xl font-bold text-white mt-1">Tab 4: Fridge Use-First Tracker</h2>
+                    <p class="text-xs sm:text-sm text-slate-400">Type or select 3 items sitting in your fridge right now that are close to expiring.</p>
+                </div>
+                <span class="text-2xl hidden sm:block">🥬</span>
+            </div>
+
+            <!-- Quick Ingredient Chips -->
+            <div>
+                <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Quick Select Expiring Items:</label>
+                <div class="flex flex-wrap gap-2 text-xs">
+                    <button onclick="addQuickIngredient('Spinach / Salad Greens')" class="bg-slate-800 hover:bg-emerald-600/20 hover:border-emerald-500 border border-slate-700 text-slate-300 font-semibold px-3 py-1.5 rounded-lg transition">🥬 Spinach / Greens</button>
+                    <button onclick="addQuickIngredient('Shredded Cheese')" class="bg-slate-800 hover:bg-emerald-600/20 hover:border-emerald-500 border border-slate-700 text-slate-300 font-semibold px-3 py-1.5 rounded-lg transition">🧀 Shredded Cheese</button>
+                    <button onclick="addQuickIngredient('Cooked / Rotisserie Chicken')" class="bg-slate-800 hover:bg-emerald-600/20 hover:border-emerald-500 border border-slate-700 text-slate-300 font-semibold px-3 py-1.5 rounded-lg transition">🍗 Cooked Chicken</button>
+                    <button onclick="addQuickIngredient('Cherry Tomatoes')" class="bg-slate-800 hover:bg-emerald-600/20 hover:border-emerald-500 border border-slate-700 text-slate-300 font-semibold px-3 py-1.5 rounded-lg transition">🍅 Cherry Tomatoes</button>
+                    <button onclick="addQuickIngredient('Tortillas')" class="bg-slate-800 hover:bg-emerald-600/20 hover:border-emerald-500 border border-slate-700 text-slate-300 font-semibold px-3 py-1.5 rounded-lg transition">🫓 Tortillas</button>
+                    <button onclick="addQuickIngredient('Jarred Pesto')" class="bg-slate-800 hover:bg-emerald-600/20 hover:border-emerald-500 border border-slate-700 text-slate-300 font-semibold px-3 py-1.5 rounded-lg transition">🫙 Jarred Pesto</button>
+                    <button onclick="addQuickIngredient('Eggs')" class="bg-slate-800 hover:bg-emerald-600/20 hover:border-emerald-500 border border-slate-700 text-slate-300 font-semibold px-3 py-1.5 rounded-lg transition">🥚 Eggs</button>
+                    <button onclick="addQuickIngredient('Black Beans')" class="bg-slate-800 hover:bg-emerald-600/20 hover:border-emerald-500 border border-slate-700 text-slate-300 font-semibold px-3 py-1.5 rounded-lg transition">🫘 Black Beans</button>
+                </div>
+            </div>
+
+            <!-- Ingredient Inputs -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 mb-1">Item #1 (Dying First)</label>
+                    <input type="text" id="ing-1" placeholder="e.g. Spinach" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 mb-1">Item #2 (Use Soon)</label>
+                    <input type="text" id="ing-2" placeholder="e.g. Shredded Cheddar" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 mb-1">Item #3 (Needs Using)</label>
+                    <input type="text" id="ing-3" placeholder="e.g. Tortillas" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+                </div>
+            </div>
+
+            <button onclick="executeStep2()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-base py-3.5 rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer">
+                <span>Proceed to Step 2: Auto-Match Meal Vault</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </button>
+        </section>
+
+        <!-- STEP 2 PANEL: ENERGY-BASED MEAL VAULT -->
+        <section id="panel-step-2" class="hidden bg-slate-900 border-2 border-slate-800 rounded-2xl p-5 sm:p-8 shadow-2xl space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div>
+                    <span class="bg-amber-500 text-slate-950 font-black text-xs px-2.5 py-0.5 rounded uppercase tracking-wider">Minutes 4–7</span>
+                    <h2 class="heading-font text-xl sm:text-2xl font-bold text-white mt-1">Energy-Based Meal Vault Matcher</h2>
+                    <p class="text-xs sm:text-sm text-slate-400">Select 1 meal built around your expiring ingredients.</p>
+                </div>
+                <div id="selected-ingredients-summary" class="bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-lg text-xs text-emerald-400 font-bold"></div>
+            </div>
+
+            <!-- Meal Cards Grid -->
+            <div id="meal-vault-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Recipe Cards rendered dynamically via JS -->
+            </div>
+
+            <div class="flex gap-3">
+                <button onclick="backToStep1()" class="w-1/3 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-sm py-3 rounded-xl transition">
+                    ← Back to Step 1
+                </button>
+                <button id="lock-meal-btn" onclick="executeStep3()" disabled class="w-2/3 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-40 text-slate-950 font-extrabold text-base py-3 rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer">
+                    <span>Lock Meal & Calculate Savings ($30+)</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- STEP 3 PANEL: IMMEDIATE RESULT & PSYCHOLOGICAL WIN -->
+        <section id="panel-step-3" class="hidden space-y-6">
+            
+            <!-- Result Banner -->
+            <div class="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl p-6 sm:p-8 text-slate-950 shadow-2xl relative overflow-hidden">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <span class="bg-slate-950 text-emerald-400 font-black text-xs px-2.5 py-1 rounded uppercase tracking-wider">Minutes 8–10 Completed</span>
+                        <h2 class="heading-font text-2xl sm:text-4xl font-black text-white mt-1">Dinner Locked & $30 Saved!</h2>
+                        <p class="text-emerald-100 text-xs sm:text-sm font-semibold mt-1">You just beat decision fatigue and prevented food waste in under 10 minutes.</p>
+                    </div>
+                    <div class="bg-slate-950/80 border border-emerald-400/30 p-4 rounded-xl text-center shrink-0">
+                        <span class="text-xs font-bold text-slate-400 block uppercase">Instant ROI</span>
+                        <span class="text-3xl font-black text-emerald-400">$30.00</span>
+                        <span class="text-[10px] text-slate-300 block">Takeout Order Saved</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Print Card / Tonight's Execution Plan -->
+            <div class="print-card bg-slate-900 border-2 border-emerald-500/50 rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6">
+                <div class="flex justify-between items-start border-b border-slate-800 pb-4">
+                    <div>
+                        <span class="text-emerald-400 text-xs font-bold uppercase tracking-wider">Tonight's Rescue Dinner</span>
+                        <h3 id="res-meal-title" class="heading-font text-2xl font-extrabold text-white"></h3>
+                        <span id="res-meal-tier" class="inline-block mt-1 bg-slate-800 text-slate-300 text-xs font-bold px-2.5 py-0.5 rounded border border-slate-700"></span>
+                    </div>
+                    <button onclick="window.print()" class="no-print bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs px-4 py-2 rounded-lg border border-slate-700 transition flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                        Print Dinner Card
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-3">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Rescued Expiring Ingredients</h4>
+                        <div id="res-ingredients-list" class="flex flex-wrap gap-2"></div>
+                        
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider pt-3">Zero-Friction Preparation Steps</h4>
+                        <ol id="res-prep-steps" class="space-y-2 text-xs sm:text-sm text-slate-300 font-medium leading-relaxed"></ol>
+                    </div>
+
+                    <!-- Psychological Impact Box -->
+                    <div class="bg-slate-950 rounded-xl p-5 border border-slate-800 space-y-3">
+                        <h4 class="heading-font text-sm font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+                            <span>🧠</span> Psychological Breakthrough
+                        </h4>
+                        <ul class="space-y-2 text-xs text-slate-300 leading-snug">
+                            <li class="flex items-start gap-2">
+                                <span class="text-emerald-400 font-bold">✓</span>
+                                <span><b>Immediate Control:</b> Reclaimed kitchen momentum without starting from a blank page.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-emerald-400 font-bold">✓</span>
+                                <span><b>Cost Recovery:</b> Recovered $30+ in 10 minutes by diverting delivery app spend.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-emerald-400 font-bold">✓</span>
+                                <span><b>Zero Guilt:</b> Eliminated the dread of throwing away spoiled groceries.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="no-print pt-4 border-t border-slate-800 flex justify-between items-center">
+                    <button onclick="resetFlow()" class="text-xs text-slate-400 hover:text-white font-bold transition">
+                        🔄 Restart 10-Minute Flow
+                    </button>
+                    <span class="text-xs text-emerald-400 font-bold">Status: Quick Win Complete 🎉</span>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        // Energy-Based Meal Vault Database
+        const mealVault = [
+            {
+                id: "quesadilla",
+                title: "Sheet Pan Bean & Cheese Quesadilla",
+                tier: "Level 0 • Under 5 Mins",
+                keywords: ["tortillas", "cheese", "shredded cheese", "black beans", "beans", "spinach"],
+                steps: [
+                    "Preheat oven or toaster oven to 425°F.",
+                    "Fill half of each tortilla with black beans, cheese, and expiring greens.",
+                    "Fold over and bake for 6 minutes until crispy and melted."
+                ]
+            },
+            {
+                id: "pesto_gnocchi",
+                title: "1-Skillet Crispy Pesto Gnocchi",
+                tier: "Level 1 • 10 Mins Total",
+                keywords: ["gnocchi", "jarred pesto", "pesto", "cherry tomatoes", "tomatoes", "cheese"],
+                steps: [
+                    "Heat olive oil in a skillet over medium-high heat.",
+                    "Add shelf gnocchi directly from package (do NOT boil first!). Toss 6 mins until golden.",
+                    "Stir in pesto and cherry tomatoes. Top with cheese and serve."
+                ]
+            },
+            {
+                id: "chicken_wrap",
+                title: "Rotisserie Chicken Fiesta Wrap",
+                tier: "Level 0 • Cold Assembly",
+                keywords: ["cooked chicken", "chicken", "tortillas", "spinach", "salad greens", "cheese"],
+                steps: [
+                    "Shred 1 cup of cold cooked chicken.",
+                    "Toss chicken with expiring salad greens, dressing, and cheese.",
+                    "Wrap in a tortilla and eat immediately."
+                ]
+            },
+            {
+                id: "peanut_noodles",
+                title: "5-Minute Sesame Peanut Noodles",
+                tier: "Level 1 • 5 Mins Total",
+                keywords: ["ramen", "noodles", "peanut butter", "spinach", "peas"],
+                steps: [
+                    "Boil ramen noodles for 3 minutes; drain.",
+                    "Whisk 2 tbsp peanut butter, 1 tbsp soy sauce, and 2 tbsp hot water until smooth.",
+                    "Toss noodles and expiring veggies directly into the peanut sauce."
+                ]
+            },
+            {
+                id: "frittata",
+                title: "10-Minute Fridge Cleanout Frittata",
+                tier: "Level 2 • 10 Mins Total",
+                keywords: ["eggs", "spinach", "cheese", "tomatoes", "cherry tomatoes", "chicken"],
+                steps: [
+                    "Whisk 4 eggs with salt and pepper.",
+                    "Sauté expiring spinach and tomatoes in an oven-safe skillet for 2 minutes.",
+                    "Pour eggs over veggies, top with cheese, and cook until set."
+                ]
+            }
+        ];
+
+        let selectedIngredients = [];
+        let chosenRecipe = null;
+
+        // Add Quick Ingredient
+        function addQuickIngredient(name) {
+            const inputs = [document.getElementById('ing-1'), document.getElementById('ing-2'), document.getElementById('ing-3')];
+            for (let input of inputs) {
+                if (!input.value) {
+                    input.value = name;
+                    break;
+                }
+            }
+        }
+
+        // Execute Step 2
+        function executeStep2() {
+            const ing1 = document.getElementById('ing-1').value.trim();
+            const ing2 = document.getElementById('ing-2').value.trim();
+            const ing3 = document.getElementById('ing-3').value.trim();
+
+            selectedIngredients = [ing1, ing2, ing3].filter(i => i !== "");
+
+            if (selectedIngredients.length === 0) {
+                alert("Please enter at least 1 expiring fridge item.");
+                return;
+            }
+
+            // Update Timeline
+            document.getElementById('timeline-step-1').className = "step-complete border-2 border-blue-500 bg-blue-500/10 p-3 rounded-xl transition-all";
+            document.getElementById('timeline-step-2').className = "step-active border-2 border-amber-500 bg-amber-500/10 p-3 rounded-xl transition-all";
+            document.getElementById('time-badge').innerText = "⏱️ Minutes 4–7: Vault Matcher";
+
+            // Render Meal Vault Cards
+            document.getElementById('selected-ingredients-summary').innerText = `Ingredients: ${selectedIngredients.join(", ")}`;
+            renderMealVault();
+
+            // Toggle Panels
+            document.getElementById('panel-step-1').classList.add('hidden');
+            document.getElementById('panel-step-2').classList.remove('hidden');
+        }
+
+        // Render Meal Vault Cards
+        function renderMealVault() {
+            const grid = document.getElementById('meal-vault-grid');
+            grid.innerHTML = "";
+
+            mealVault.forEach(recipe => {
+                const card = document.createElement('div');
+                card.className = "bg-slate-950 border-2 border-slate-800 hover:border-amber-500/50 p-4 rounded-xl cursor-pointer transition flex flex-col justify-between";
+                card.onclick = () => selectRecipe(recipe, card);
+
+                card.innerHTML = `
+                    <div>
+                        <span class="text-[10px] font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded uppercase">${recipe.tier}</span>
+                        <h3 class="heading-font text-base font-bold text-white mt-1">${recipe.title}</h3>
+                        <p class="text-xs text-slate-400 mt-1">Steps: ${recipe.steps[0]}</p>
+                    </div>
+                    <div class="mt-3 pt-2 border-t border-slate-800 flex justify-between items-center text-xs">
+                        <span class="text-emerald-400 font-bold">Uses Expiring Items</span>
+                        <span class="select-badge text-slate-500 font-bold">Select →</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Select Recipe Card
+        function selectRecipe(recipe, cardElement) {
+            chosenRecipe = recipe;
+            document.querySelectorAll('#meal-vault-grid > div').forEach(c => {
+                c.classList.remove('border-amber-500', 'bg-amber-500/10');
+                c.querySelector('.select-badge').innerText = "Select →";
+                c.querySelector('.select-badge').className = "select-badge text-slate-500 font-bold";
+            });
+            cardElement.classList.add('border-amber-500', 'bg-amber-500/10');
+            cardElement.querySelector('.select-badge').innerText = "SELECTED ✓";
+            cardElement.querySelector('.select-badge').className = "select-badge text-amber-400 font-bold";
+
+            document.getElementById('lock-meal-btn').disabled = false;
+        }
+
+        // Back to Step 1
+        function backToStep1() {
+            document.getElementById('panel-step-2').classList.add('hidden');
+            document.getElementById('panel-step-1').classList.remove('hidden');
+            document.getElementById('timeline-step-1').className = "step-active border-2 border-emerald-500 bg-emerald-500/10 p-3 rounded-xl transition-all";
+            document.getElementById('timeline-step-2').className = "border-2 border-slate-800 bg-slate-800/20 p-3 rounded-xl transition-all opacity-60";
+            document.getElementById('time-badge').innerText = "⏱️ Minutes 1–3: Fridge Audit";
+        }
+
+        // Execute Step 3
+        function executeStep3() {
+            if (!chosenRecipe) return;
+
+            // Timeline
+            document.getElementById('timeline-step-2').className = "step-complete border-2 border-blue-500 bg-blue-500/10 p-3 rounded-xl transition-all";
+            document.getElementById('timeline-step-3').className = "step-active border-2 border-emerald-500 bg-emerald-500/10 p-3 rounded-xl transition-all";
+            document.getElementById('time-badge').innerText = "⏱️ Minutes 8–10: Complete!";
+
+            // Render Result Card
+            document.getElementById('res-meal-title').innerText = chosenRecipe.title;
+            document.getElementById('res-meal-tier').innerText = chosenRecipe.tier;
+
+            const ingList = document.getElementById('res-ingredients-list');
+            ingList.innerHTML = selectedIngredients.map(i => `<span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold px-2.5 py-1 rounded-md">🥬 ${i}</span>`).join('');
+
+            const stepsList = document.getElementById('res-prep-steps');
+            stepsList.innerHTML = chosenRecipe.steps.map((s, idx) => `
+                <li class="flex gap-2">
+                    <span class="font-extrabold text-emerald-400">${idx + 1}.</span>
+                    <span>${s}</span>
+                </li>
+            `).join('');
+
+            // Toggle Panels
+            document.getElementById('panel-step-2').classList.add('hidden');
+            document.getElementById('panel-step-3').classList.remove('hidden');
+
+            // Trigger Confetti
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+
+        // Reset
+        function resetFlow() {
+            document.getElementById('ing-1').value = "";
+            document.getElementById('ing-2').value = "";
+            document.getElementById('ing-3').value = "";
+            chosenRecipe = null;
+            selectedIngredients = [];
+            
+            document.getElementById('panel-step-3').classList.add('hidden');
+            document.getElementById('panel-step-1').classList.remove('hidden');
+            
+            document.getElementById('timeline-step-1').className = "step-active border-2 border-emerald-500 bg-emerald-500/10 p-3 rounded-xl transition-all";
+            document.getElementById('timeline-step-2').className = "border-2 border-slate-800 bg-slate-800/20 p-3 rounded-xl transition-all opacity-60";
+            document.getElementById('timeline-step-3').className = "border-2 border-slate-800 bg-slate-800/20 p-3 rounded-xl transition-all opacity-60";
+            document.getElementById('time-badge').innerText = "⏱️ Minutes 1–3: Fridge Audit";
+        }
+    </script>
+
+</body>
+</html>
